@@ -9,6 +9,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InputBuilder {
+    public static final int SITES_LOWER_COUNT = 5;
+    public static final int SITES_UPPER_COUNT = 10;
+    public static final int RESOURCES_LOWER_COUNT = 5;
+    public static final int RESOURCES_UPPER_COUNT = 8;
+    public static final double RESOURCES_LOWER_POWER = 1d;
+    public static final double RESOURCES_UPPER_POWER = 7.5d;
+    public static final int TASKS_LOWER_COUNT = 1000;
+    public static final int TASKS_UPPER_COUNT = 5000;
+    public static final int COMPUTATION_LOWER_TIME = 20;
+    public static final int COMPUTATION_UPPER_TIME = 500;
     private final List<Site> sites;
     private final List<Resource> resources;
     private final List<Task> tasks;
@@ -38,7 +48,7 @@ public class InputBuilder {
     }
 
     public List<Site> buildSites() {
-        int sitesCount = Random.uniformInt(5,10).sample(); //from 5 till 10
+        int sitesCount = Random.uniformInt(SITES_LOWER_COUNT, SITES_UPPER_COUNT).sample(); //from 5 till 10
         List<Site> sites = new ArrayList<>();
         while (sitesCount-->0) {
             sites.add(new Site(buildResources()));
@@ -47,15 +57,15 @@ public class InputBuilder {
     }
 
     private List<Resource> buildResources() {
-        int resourcesCount = Random.uniformInt(5,8).sample(); // from 5 till 8
-        return Arrays.stream(Random.uniformReal(1, 7.5d).sample(resourcesCount)) //processor power 1 to 7.5
+        int resourcesCount = Random.uniformInt(RESOURCES_LOWER_COUNT, RESOURCES_UPPER_COUNT).sample(); // from 5 till 8
+        return Arrays.stream(Random.uniformReal(RESOURCES_LOWER_POWER, RESOURCES_UPPER_POWER).sample(resourcesCount))
                 .boxed()
                 .map(Resource::new)
                 .collect(Collectors.toList());
     }
 
     public List<Task> buildTasks(double slowestResource) {
-        int tasksCount = Random.uniformInt(1000,5000).sample(); // from 1k till 5k
+        int tasksCount = Random.uniformInt(TASKS_LOWER_COUNT,TASKS_UPPER_COUNT).sample(); // from 1k till 5k
         List<Integer> interArrivalIntervals = Arrays.stream(Random.poisson(5).sample(tasksCount))//delays Poisson
                 .boxed()
                 .collect(Collectors.toList());
@@ -68,7 +78,8 @@ public class InputBuilder {
         }
         Iterator<Integer> currentTime = startedTimes.iterator();
 
-        return Arrays.stream(Random.uniformReal(20, 500).sample(tasksCount)) //computation times
+        return Arrays.stream(Random.uniformReal(COMPUTATION_LOWER_TIME, COMPUTATION_UPPER_TIME)
+                .sample(tasksCount)) //computation times
                 .boxed()
                 .map(d -> new Task(d, currentTime.next(), slowestResource))
                 .collect(Collectors.toList());

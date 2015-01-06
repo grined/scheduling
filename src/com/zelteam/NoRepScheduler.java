@@ -7,24 +7,24 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class NoRepScheduler extends Scheduler {
-    private LinkedList<Resource> reputationList;
-    private LinkedList<Task> deadlineFactorList;
+    private LinkedList<Resource> resourceLinkedList;
+    private LinkedList<Task> taskLinkedList;
 
     public NoRepScheduler(InputBuilder inputBuilder) {
         super(inputBuilder);
-        reputationList = new LinkedList<>(resources);
-        deadlineFactorList = new LinkedList<>();
+        resourceLinkedList = new LinkedList<>(resources);
+        taskLinkedList = new LinkedList<>();
     }
 
     @Override
     public void run(){
         Double time = 0d;
         ListIterator<Task> taskIterator = tasks.listIterator();
-        reputationList.sort((r2,r1) -> Double.compare(r1.getSpeed(),r2.getSpeed()));
+        resourceLinkedList.sort((r2, r1) -> Double.compare(r1.getSpeed(), r2.getSpeed()));
         while (true) {
-            //Check resources to finish their tasks and update rrep
+            //Check resources to finish their tasks
             checkResourceToFinish(time);
-            //Check for new tasks will appear and update df
+            //Check for new tasks will appear
             checkForNewTasks(time, taskIterator);
             //Manage tasks
             manageTasks(time);
@@ -41,16 +41,16 @@ public class NoRepScheduler extends Scheduler {
 
     private void manageTasks(Double time) {
         Resource firstNotBusyResource = findFirstNotBusyResource();
-        Task firstTask = !deadlineFactorList.isEmpty() ? deadlineFactorList.getFirst() : null;
+        Task firstTask = !taskLinkedList.isEmpty() ? taskLinkedList.getFirst() : null;
         if (firstNotBusyResource!= null && firstTask != null){
             firstNotBusyResource.applyTask(firstTask, time);
-            deadlineFactorList.remove(firstTask);
+            taskLinkedList.remove(firstTask);
             manageTasks(time);
         }
     }
 
     private Resource findFirstNotBusyResource() {
-        for (Resource resource : reputationList) {
+        for (Resource resource : resourceLinkedList) {
             if (!resource.isBusy()) {
                 return resource;
             }
@@ -62,7 +62,7 @@ public class NoRepScheduler extends Scheduler {
         if (taskIterator.hasNext()){
             Task next = taskIterator.next();
             if (next.getAppearTime()<=time){
-                deadlineFactorList.add(next);
+                taskLinkedList.add(next);
                 checkForNewTasks(time, taskIterator);
             } else {
                 taskIterator.previous();
@@ -72,14 +72,14 @@ public class NoRepScheduler extends Scheduler {
     }
 
     private void checkResourceToFinish(final Double time) {
-        reputationList.stream()
+        resourceLinkedList.stream()
                 .filter(r -> r.whenFinished() <= time)
                 .forEachOrdered(r-> r.finishTask(time));
         //Here we do not sort data!
     }
 
     private double findFirstActionWillHappen(ListIterator<Task> taskIterator) {
-        double firstFinishedTask = reputationList.stream()
+        double firstFinishedTask = resourceLinkedList.stream()
                 .filter(Resource::isBusy)
                 .mapToDouble(Resource::whenFinished)
                 .min()
