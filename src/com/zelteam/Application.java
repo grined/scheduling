@@ -5,7 +5,7 @@ public class Application {
         InputBuilder inputBuilder = new InputBuilder();
 
         new RepScheduler(inputBuilder).run();
-        new NoRepScheduler(inputBuilder).run();
+        //new NoRepScheduler(inputBuilder).run();
 
     }
 }

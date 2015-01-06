@@ -26,6 +26,8 @@ public abstract class Scheduler {
 
     protected void printStat(String name, Double time) {
         NumberFormat numberFormat = new DecimalFormat("#.##");
+        System.out.println("------------------------");
+        System.out.println(name);
         System.out.println(name+": "+numberFormat.format(time) +"ms");
         System.out.println("Sites count: "+sites.size());
         System.out.println("Resources count: "+resources.size());
@@ -34,5 +36,11 @@ public abstract class Scheduler {
         long finishedCount = tasks.stream().filter(Task::isFinished).count();
         System.out.println("Finished tasks / success tasks : " +finishedCount +"/"+successCount);
         System.out.println("Success rate : " + numberFormat.format((successCount+.0)/finishedCount));
+        double utilizationRate = resources.stream()
+                .mapToDouble(Resource::calcUtilizationRate)
+                .average()
+                .getAsDouble();
+        System.out.println("Avg utilization rate : " + numberFormat.format(utilizationRate));
+        System.out.println("------------------------");
     }
 }

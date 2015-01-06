@@ -38,6 +38,13 @@ public class Resource {
         rRep = 0d;
     }
 
+    public double calcUtilizationRate(){
+        if (executionTime+waitingTime == 0){
+            return 0d;
+        }
+        return executionTime / (executionTime+waitingTime);
+    }
+
     public void applyTask(Task task, double time) {
         currentTask = task;
         task.setStartedAt(time);
@@ -74,6 +81,8 @@ public class Resource {
         rRep = ppr / pr;
         return rRep;
     }
+
+
 
 
 }

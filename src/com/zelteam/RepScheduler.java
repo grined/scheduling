@@ -78,6 +78,9 @@ public class RepScheduler extends Scheduler {
         deadlineFactorList.sort((t2, t1) ->{
             double v1 = t1.calcDeadlineFactor(time);
             double v2 = t2.calcDeadlineFactor(time);
+            if (Double.compare(v1, v2) == 0){
+                return Double.compare(t2.getAppearTime(),t1.getAppearTime());
+            }
             return Double.compare(v1, v2);
         });
     }
