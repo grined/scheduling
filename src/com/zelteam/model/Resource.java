@@ -76,7 +76,7 @@ public class Resource {
     }
 
     private double updateResourceReputation() {
-        double pr = completedTasks/executionTime + waitingTime/completedTasks;
+        double pr = completedTasks/(executionTime*speed) + waitingTime/completedTasks;
         double ppr = successfulTasks + executionTime/completedTasks;
         rRep = ppr / pr;
         return rRep;
