@@ -12,6 +12,7 @@ public class Task {
         this.computationalSize = computationalSize;
         this.appearTime = appearTime;
         this.deadlineTime = appearTime + computationalSize/slowestResourceSpeed;
+        setToDefault();
     }
 
     public void setToDefault(){

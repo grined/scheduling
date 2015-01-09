@@ -1,4 +1,4 @@
-package com.zelteam;
+package com.zelteam.input;
 
 import com.zelteam.model.Resource;
 import com.zelteam.model.Site;

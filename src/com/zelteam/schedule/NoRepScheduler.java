@@ -1,5 +1,6 @@
-package com.zelteam;
+package com.zelteam.schedule;
 
+import com.zelteam.input.Inputable;
 import com.zelteam.model.Resource;
 import com.zelteam.model.Task;
 

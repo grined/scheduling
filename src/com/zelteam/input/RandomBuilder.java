@@ -1,4 +1,4 @@
-package com.zelteam;
+package com.zelteam.input;
 
 import com.zelteam.model.Resource;
 import com.zelteam.model.Site;
@@ -8,9 +8,9 @@ import com.zelteam.util.Random;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class InputBuilder implements Inputable {
-    public static final int SITES_LOWER_COUNT = 5;
-    public static final int SITES_UPPER_COUNT = 10;
+public class RandomBuilder implements Inputable {
+    public static final int SITES_LOWER_COUNT = 1;
+    public static final int SITES_UPPER_COUNT = 1;
     public static final int RESOURCES_LOWER_COUNT = 5;
     public static final int RESOURCES_UPPER_COUNT = 8;
     public static final double RESOURCES_LOWER_POWER = 1d;
@@ -23,7 +23,7 @@ public class InputBuilder implements Inputable {
     private final List<Resource> resources;
     private final List<Task> tasks;
 
-    public InputBuilder() {
+    public RandomBuilder() {
         sites = buildSites();
         resources = sites.stream()
                 .flatMap(s -> s.getResources().stream())
