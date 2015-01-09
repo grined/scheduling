@@ -2,9 +2,9 @@ package com.zelteam;
 
 public class Application {
     public static void main(String[] args) {
-        InputBuilder inputBuilder = new InputBuilder();
+        Inputable inputable = new InputBuilder();
 
-        new RepScheduler(inputBuilder).run();
+        new RepScheduler(inputable).run();
         //new NoRepScheduler(inputBuilder).run();
 
     }

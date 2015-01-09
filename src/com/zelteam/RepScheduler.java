@@ -1,7 +1,6 @@
 package com.zelteam;
 
 import com.zelteam.model.Resource;
-import com.zelteam.model.Site;
 import com.zelteam.model.Task;
 
 import java.util.*;
@@ -10,8 +9,8 @@ public class RepScheduler extends Scheduler {
     private LinkedList<Resource> reputationList;
     private LinkedList<Task> deadlineFactorList;
 
-    public RepScheduler(InputBuilder inputBuilder) {
-        super(inputBuilder);
+    public RepScheduler(Inputable inputable) {
+        super(inputable);
         reputationList = new LinkedList<>(resources);
         deadlineFactorList = new LinkedList<>();
     }

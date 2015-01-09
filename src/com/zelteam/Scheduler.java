@@ -15,11 +15,11 @@ public abstract class Scheduler {
     protected final List<Task> tasks;
     protected final List<Resource> resources;
 
-    public Scheduler(InputBuilder inputBuilder){
-        sites = inputBuilder.getSites();
-        resources = new ArrayList<>(inputBuilder.getResources());
+    public Scheduler(Inputable inputable){
+        sites = inputable.getSites();
+        resources = new ArrayList<>(inputable.getResources());
         resources.forEach(Resource::setToDefault);
-        tasks = new ArrayList<>(inputBuilder.getTasks());
+        tasks = new ArrayList<>(inputable.getTasks());
         tasks.forEach(Task::setToDefault);
     }
     abstract void run();

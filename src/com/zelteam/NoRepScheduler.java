@@ -10,8 +10,8 @@ public class NoRepScheduler extends Scheduler {
     private LinkedList<Resource> resourceLinkedList;
     private LinkedList<Task> taskLinkedList;
 
-    public NoRepScheduler(InputBuilder inputBuilder) {
-        super(inputBuilder);
+    public NoRepScheduler(Inputable inputable) {
+        super(inputable);
         resourceLinkedList = new LinkedList<>(resources);
         taskLinkedList = new LinkedList<>();
     }

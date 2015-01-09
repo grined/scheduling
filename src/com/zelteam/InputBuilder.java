@@ -8,15 +8,15 @@ import com.zelteam.util.Random;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class InputBuilder {
-    public static final int SITES_LOWER_COUNT = 3;
-    public static final int SITES_UPPER_COUNT = 3;
+public class InputBuilder implements Inputable {
+    public static final int SITES_LOWER_COUNT = 5;
+    public static final int SITES_UPPER_COUNT = 10;
     public static final int RESOURCES_LOWER_COUNT = 5;
-    public static final int RESOURCES_UPPER_COUNT = 5;
+    public static final int RESOURCES_UPPER_COUNT = 8;
     public static final double RESOURCES_LOWER_POWER = 1d;
-    public static final double RESOURCES_UPPER_POWER = 5d;
-    public static final int TASKS_LOWER_COUNT = 8000;
-    public static final int TASKS_UPPER_COUNT = 10000;
+    public static final double RESOURCES_UPPER_POWER = 7.5d;
+    public static final int TASKS_LOWER_COUNT = 1000;
+    public static final int TASKS_UPPER_COUNT = 5000;
     public static final int COMPUTATION_LOWER_TIME = 20;
     public static final int COMPUTATION_UPPER_TIME = 500;
     private final List<Site> sites;
@@ -35,14 +35,17 @@ public class InputBuilder {
         tasks = buildTasks(slowestResource);
     }
 
+    @Override
     public List<Site> getSites() {
         return sites;
     }
 
+    @Override
     public List<Resource> getResources() {
         return resources;
     }
 
+    @Override
     public List<Task> getTasks() {
         return tasks;
     }
